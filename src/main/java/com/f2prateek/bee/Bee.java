@@ -64,11 +64,16 @@ public class Bee {
   public static String spell(String text) {
     StringBuilder sb = new StringBuilder();
 
-    for (int i = 0, length = text.length(), last = length - 1; i < length; i++) {
+    for (int i = 0, length = text.length(); i < length; i++) {
       char c = text.charAt(i);
       if (Character.isSpaceChar(c)) {
-        sb.append('\n');
+        if (sb.length() > 0) {
+          sb.append('\n');
+        }
         continue;
+      }
+      if (sb.length() > 0) {
+        sb.append(' ');
       }
 
       String spelt = Bee.spell(c);
@@ -76,10 +81,6 @@ public class Bee {
         sb.append(c);
       } else {
         sb.append(spelt);
-      }
-
-      if (i != last) {
-        sb.append(' ');
       }
     }
 
