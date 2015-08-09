@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">Bee</string>
+  <string name="prompt">Enter your text…</string>
+  <string name="notification_description">Need some help to communicate a word?</string>
+</resources>

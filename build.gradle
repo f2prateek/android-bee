@@ -1,0 +1,52 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:1.2.3'
+    classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+  }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.hugo'
+
+android {
+  compileSdkVersion 22
+  buildToolsVersion '23.0.0 rc3'
+
+  defaultConfig {
+    applicationId 'com.f2prateek.bee'
+    minSdkVersion 15
+    targetSdkVersion 22
+    versionCode 100
+    versionName '1.0.0'
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  testOptions {
+    // None of the unit tests depend on Android, but Hugo does. https://cloudup.com/ciKdM8bq2dd
+    // Just return default values so that we can leave Hugo enabled for tests.
+    unitTests.returnDefaultValues = true
+  }
+}
+
+dependencies {
+  repositories {
+    jcenter()
+  }
+
+  compile 'com.android.support:appcompat-v7:22.2.1'
+  compile 'io.reactivex:rxandroid:1.0.0'
+  compile 'com.jakewharton.rxbinding:rxbinding:0.1.0'
+  compile 'com.jakewharton:butterknife:7.0.1'
+
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.assertj:assertj-core:1.7.0'
+}
