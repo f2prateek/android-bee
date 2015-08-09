@@ -61,7 +61,7 @@ public class Bee {
   }
 
   @DebugLog
-  public static String spell(String text) {
+  public static String spell(CharSequence text) {
     StringBuilder sb = new StringBuilder();
 
     for (int i = 0, length = text.length(); i < length; i++) {
