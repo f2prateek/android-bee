@@ -23,10 +23,18 @@ android {
     versionName '1.0.0'
   }
 
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+  }
+
+  dexOptions {
+    preDexLibraries = Boolean.valueOf(System.getProperty("pre-dex", "true"))
+  }
+
   buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    debug {
+      applicationIdSuffix '.debug'
     }
   }
 }
