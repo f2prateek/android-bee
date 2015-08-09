@@ -1,12 +1,9 @@
 package com.f2prateek.bee;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextSwitcher;
-import android.widget.ViewSwitcher;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -16,8 +13,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
-
-import static android.view.animation.AnimationUtils.loadAnimation;
 
 public class MainActivity extends AppCompatActivity {
   @Bind(R.id.editor) EditText editor;
@@ -29,14 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
-
-    display.setInAnimation(loadAnimation(this, android.R.anim.fade_in));
-    display.setOutAnimation(loadAnimation(this, android.R.anim.fade_out));
-    display.setFactory(new ViewSwitcher.ViewFactory() {
-      @SuppressLint("InflateParams") @Override public View makeView() {
-        return getLayoutInflater().inflate(R.layout.text_display, null);
-      }
-    });
   }
 
   @Override protected void onResume() {
