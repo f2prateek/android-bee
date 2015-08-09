@@ -29,12 +29,6 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
-
-  testOptions {
-    // None of the unit tests depend on Android, but Hugo does. https://cloudup.com/ciKdM8bq2dd
-    // Just return default values so that we can leave Hugo enabled for tests.
-    unitTests.returnDefaultValues = true
-  }
 }
 
 dependencies {

@@ -1,7 +1,5 @@
 package com.f2prateek.bee;
 
-import hugo.weaving.DebugLog;
-
 public class Bee {
   private Bee() {
     throw new AssertionError("No instances.");
@@ -60,7 +58,6 @@ public class Bee {
     return null;
   }
 
-  @DebugLog
   public static String spell(CharSequence text) {
     StringBuilder sb = new StringBuilder();
 

@@ -29,7 +29,6 @@ public class BeeTest {
   }
 
   @Test public void testSpace() {
-    // todo: fix spacing
-    assertThat(Bee.spell("a b c")).isEqualTo("Alfa \nBravo \nCharlie");
+    assertThat(Bee.spell("a b c")).isEqualTo("Alfa\n Bravo\n Charlie");
   }
 }
