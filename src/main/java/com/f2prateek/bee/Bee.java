@@ -61,17 +61,21 @@ public class Bee {
   public static String spell(CharSequence text) {
     StringBuilder sb = new StringBuilder();
 
+    boolean addSpace = true;
     for (int i = 0, length = text.length(); i < length; i++) {
       char c = text.charAt(i);
       if (Character.isSpaceChar(c)) {
         if (sb.length() > 0) {
           sb.append('\n');
+          addSpace = false;
         }
         continue;
       }
-      if (sb.length() > 0) {
+
+      if (sb.length() > 0 && addSpace) {
         sb.append(' ');
       }
+      addSpace = true;
 
       String spelt = Bee.spell(c);
       if (spelt == null) {
