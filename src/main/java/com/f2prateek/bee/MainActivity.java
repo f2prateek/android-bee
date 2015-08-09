@@ -16,27 +16,25 @@ import rx.functions.Func1;
 public class MainActivity extends AppCompatActivity {
   @Bind(R.id.editor) EditText editor;
   @Bind(R.id.display) TextSwitcher display;
-  Subscription editorTextChangeEvents;
+  Subscription editorTextChanges;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
   }
 
   @Override protected void onResume() {
     super.onResume();
-
-    editorTextChangeEvents = RxTextView.textChanges(editor)
-        .skip(1)
-        .debounce(400, TimeUnit.MILLISECONDS)
+    editorTextChanges = RxTextView.textChanges(editor) //
+        .skip(1) // First event is a blank string "".
+        .debounce(400, TimeUnit.MILLISECONDS) //
         .map(new Func1<CharSequence, String>() {
           @Override public String call(CharSequence text) {
             return Bee.spell(text);
           }
-        })
-        .observeOn(AndroidSchedulers.mainThread())
+        }) //
+        .observeOn(AndroidSchedulers.mainThread()) //
         .subscribe(new Action1<String>() {
           @Override public void call(String text) {
             display.setText(text);
@@ -46,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
   @Override protected void onPause() {
     super.onPause();
-
-    editorTextChangeEvents.unsubscribe();
+    editorTextChanges.unsubscribe();
   }
 }
