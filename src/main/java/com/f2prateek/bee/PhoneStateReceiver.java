@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
+import timber.log.Timber;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static android.telephony.TelephonyManager.EXTRA_STATE_IDLE;
@@ -29,7 +30,8 @@ public class PhoneStateReceiver extends BroadcastReceiver {
     }
 
     if (!EXTRA_STATE_RINGING.equals(state) && !EXTRA_STATE_OFFHOOK.equals(state)) {
-      return; // Unknown state.
+      Timber.e("Unknown state: %s", state);
+      return;
     }
 
     Resources resources = context.getResources();
