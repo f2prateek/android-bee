@@ -10,7 +10,6 @@ import android.widget.ViewSwitcher;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding.widget.RxTextView;
-import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 import java.util.concurrent.TimeUnit;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -42,18 +41,18 @@ public class MainActivity extends AppCompatActivity {
   @Override protected void onResume() {
     super.onResume();
 
-    editorTextChangeEvents = RxTextView.textChangeEvents(editor)
+    editorTextChangeEvents = RxTextView.textChanges(editor)
         .skip(1)
         .debounce(400, TimeUnit.MILLISECONDS)
-        .map(new Func1<TextViewTextChangeEvent, String>() {
-          @Override public String call(TextViewTextChangeEvent textViewTextChangeEvent) {
-            return textViewTextChangeEvent.view().getText().toString();
+        .map(new Func1<CharSequence, String>() {
+          @Override public String call(CharSequence text) {
+            return Bee.spell(text);
           }
         })
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Action1<String>() {
           @Override public void call(String text) {
-            display.setText(Bee.spell(text));
+            display.setText(text);
           }
         });
   }
