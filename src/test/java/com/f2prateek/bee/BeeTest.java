@@ -2,7 +2,7 @@ package com.f2prateek.bee;
 
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.google.common.truth.Truth.assertThat;
 
 public class BeeTest {
   @Test public void testCharacters() {
@@ -29,6 +29,7 @@ public class BeeTest {
   }
 
   @Test public void testSpace() {
+    // todo: trim leading spaces
     assertThat(Bee.spell("a b c")).isEqualTo("Alfa\n Bravo\n Charlie");
   }
 }
