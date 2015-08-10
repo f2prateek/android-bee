@@ -28,6 +28,8 @@ android {
 
     versionCode versionMajor * 1000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
     versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+    testInstrumentationRunner "com.f2prateek.bee.BeeTestRunner"
   }
 
   compileOptions {
@@ -46,6 +48,12 @@ android {
   }
 }
 
+configurations.all {
+  resolutionStrategy {
+    force 'com.android.support:support-annotations:22.2.1'
+  }
+}
+
 dependencies {
   repositories {
     jcenter()
@@ -59,4 +67,10 @@ dependencies {
 
   testCompile 'junit:junit:4.12'
   testCompile 'com.google.truth:truth:0.27'
+
+
+  androidTestCompile 'junit:junit:4.12'
+  androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
+  androidTestCompile 'com.android.support.test:runner:0.3'
+  androidTestCompile 'com.android.support.test:rules:0.3'
 }
