@@ -14,28 +14,34 @@ public final class Matchers {
 
   /** Matches that a {@link ViewGroup} contains a child {@link TextView} with the given text. */
   public static Matcher<View> childWithText(String text) {
-    return childWithText(org.hamcrest.Matchers.is(text));
+    final Matcher<String> matcher = org.hamcrest.Matchers.is(text);
+    return childWithMatcher(new BoundedMatcher<View, TextView>(TextView.class) {
+      @Override public void describeTo(Description description) {
+        description.appendText("with text: ");
+        matcher.describeTo(description);
+      }
+
+      @Override protected boolean matchesSafely(TextView textView) {
+        return matcher.matches(textView.getText());
+      }
+    });
   }
 
   /**
-   * Matches that a {@link ViewGroup} contains a child {@link TextView} that matches the given
+   * Matches that a {@link ViewGroup} contains a child {@link View} that matches the given
    * {@code matcher}.
    */
-  public static Matcher<View> childWithText(final Matcher<? extends CharSequence> matcher) {
+  public static Matcher<View> childWithMatcher(final Matcher<?> matcher) {
     return new BoundedMatcher<View, ViewGroup>(ViewGroup.class) {
       public void describeTo(Description description) {
-        description.appendText("with text: ");
+        description.appendText("child with matcher: ");
         matcher.describeTo(description);
       }
 
       public boolean matchesSafely(ViewGroup viewGroup) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
-          try {
-            TextView textView = (TextView) viewGroup.getChildAt(i);
-            if (matcher.matches(textView.getText())) {
-              return true;
-            }
-          } catch (ClassCastException ignored) {
+          if (matcher.matches(viewGroup.getChildAt(i))) {
+            return true;
           }
         }
         return false;
