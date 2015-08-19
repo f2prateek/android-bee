@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     super.onResume();
     editorTextChanges = RxTextView.textChanges(editor) //
         .skip(1) // First event is a blank string "".
-        .debounce(400, TimeUnit.MILLISECONDS) //
+        .debounce(400, TimeUnit.MILLISECONDS, SchedulersHook.computation()) //
         .map(new Func1<CharSequence, String>() {
           @Override public String call(CharSequence text) {
             return Bee.spell(text);
