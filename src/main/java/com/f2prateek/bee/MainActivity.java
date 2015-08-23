@@ -7,6 +7,7 @@ import android.widget.TextSwitcher;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding.widget.RxTextSwitcher;
 import java.util.concurrent.TimeUnit;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -35,11 +36,7 @@ public class MainActivity extends AppCompatActivity {
           }
         }) //
         .observeOn(AndroidSchedulers.mainThread()) //
-        .subscribe(new Action1<String>() {
-          @Override public void call(String text) {
-            display.setText(text);
-          }
-        });
+        .subscribe(RxTextSwitcher.text(display));
   }
 
   @Override protected void onPause() {
