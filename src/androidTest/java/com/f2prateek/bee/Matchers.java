@@ -31,7 +31,7 @@ public final class Matchers {
    * Matches that a {@link ViewGroup} contains a child {@link View} that matches the given
    * {@code matcher}.
    */
-  public static Matcher<View> childWithMatcher(final Matcher<?> matcher) {
+  static Matcher<View> childWithMatcher(final Matcher<?> matcher) {
     return new BoundedMatcher<View, ViewGroup>(ViewGroup.class) {
       public void describeTo(Description description) {
         description.appendText("child with matcher: ");
