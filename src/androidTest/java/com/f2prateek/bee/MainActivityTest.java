@@ -2,6 +2,7 @@ package com.f2prateek.bee;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import com.squareup.spoon.Spoon;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,8 +25,10 @@ public final class MainActivityTest {
   }
 
   @Test public void display() throws Exception {
+    Spoon.screenshot(main.getActivity(), "empty_text");
     onView(withId(R.id.editor)).perform(typeText("Foo Bar"));
     onView(withId(R.id.display)) //
         .check(matches(childWithText("Foxtrot Oscar Oscar\nBravo Alfa Romeo")));
+    Spoon.screenshot(main.getActivity(), "typed_text");
   }
 }
