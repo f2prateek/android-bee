@@ -11,7 +11,12 @@ buildscript {
       exclude module: 'guava'
     }
     classpath 'com.google.guava:guava:17.0'
+    classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+    classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
   }
+
+  // Exclude the lombok version that the android plugin depends on.
+  configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
 
 apply plugin: 'com.android.application'
@@ -19,6 +24,7 @@ apply plugin: 'com.jakewharton.hugo'
 apply plugin: 'checkstyle'
 apply plugin: 'com.f2prateek.checkstyle'
 apply plugin: 'spoon'
+apply plugin: 'me.tatarka.retrolambda'
 
 def versionMajor = 0
 def versionMinor = 1
@@ -45,8 +51,8 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_7
-    targetCompatibility JavaVersion.VERSION_1_7
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 
   dexOptions {
