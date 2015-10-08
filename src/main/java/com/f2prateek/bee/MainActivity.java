@@ -11,7 +11,6 @@ import com.jakewharton.rxbinding.widget.RxTextSwitcher;
 import java.util.concurrent.TimeUnit;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 
 public class MainActivity extends AppCompatActivity {
   @Bind(R.id.editor) EditText editor;
@@ -29,11 +28,7 @@ public class MainActivity extends AppCompatActivity {
     editorTextChanges = RxTextView.textChanges(editor) //
         .skip(1) // First event is a blank string "".
         .debounce(400, TimeUnit.MILLISECONDS, SchedulersHook.computation()) //
-        .map(new Func1<CharSequence, String>() {
-          @Override public String call(CharSequence text) {
-            return Bee.spell(text);
-          }
-        }) //
+        .map(Bee::spell) //
         .observeOn(AndroidSchedulers.mainThread()) //
         .subscribe(RxTextSwitcher.text(display));
   }
