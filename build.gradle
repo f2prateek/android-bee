@@ -28,7 +28,7 @@ apply plugin: 'me.tatarka.retrolambda'
 
 def versionMajor = 0
 def versionMinor = 1
-def versionPatch = 0
+def versionPatch = 1
 def versionBuild = 0
 
 def isTravis = "true".equals(System.getenv("TRAVIS"))
