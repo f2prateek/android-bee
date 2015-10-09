@@ -1,6 +1,6 @@
 package com.f2prateek.bee;
 
-public class Bee {
+public final class Bee {
   private Bee() {
     throw new AssertionError("No instances.");
   }
