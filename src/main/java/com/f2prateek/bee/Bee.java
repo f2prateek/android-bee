@@ -1,5 +1,8 @@
 package com.f2prateek.bee;
 
+import android.support.annotation.VisibleForTesting;
+import hugo.weaving.DebugLog;
+
 public final class Bee {
   private Bee() {
     throw new AssertionError("No instances.");
@@ -58,7 +61,13 @@ public final class Bee {
     return null;
   }
 
-  public static String spell(CharSequence text) {
+  @DebugLog public static String spell(CharSequence text) {
+    return spellReal(text);
+  }
+
+  // Can't use @DebugLog in unit tests, so wrap this method in `spell` for the app with @DebugLog,
+  // and use this method in unit tests.
+  @VisibleForTesting static String spellReal(CharSequence text) {
     StringBuilder sb = new StringBuilder();
 
     boolean addSpace = true;
