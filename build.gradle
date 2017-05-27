@@ -21,8 +21,8 @@ def versionMinor = 2
 def versionPatch = 0
 def versionBuild = 0
 
-def isTravis = "true".equals(System.getenv("TRAVIS"))
-def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
+def isTravis = "true" == System.getenv("TRAVIS")
+def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
   compileSdkVersion 25
