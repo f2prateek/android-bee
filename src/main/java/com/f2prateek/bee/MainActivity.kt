@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         editorTextChanges = RxTextView.textChanges(editor!!)
                 .skip(1) // First event is a blank string "".
-                .debounce(400, TimeUnit.MILLISECONDS, SchedulersHook.computation())
+                .debounce(400, TimeUnit.MILLISECONDS)
                 .map(CharSequence::spell)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(RxTextSwitcher.text(display!!))
