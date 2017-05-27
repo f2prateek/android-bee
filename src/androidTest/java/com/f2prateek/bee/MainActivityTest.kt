@@ -6,7 +6,6 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import com.f2prateek.bee.Matchers.Companion.childWithText
 import com.squareup.spoon.Spoon
 import org.junit.BeforeClass
 import org.junit.Rule
