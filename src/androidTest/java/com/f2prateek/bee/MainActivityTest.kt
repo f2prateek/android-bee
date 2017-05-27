@@ -12,6 +12,7 @@ import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import rx.plugins.RxJavaHooks
 import rx.schedulers.Schedulers
 
 @RunWith(AndroidJUnit4::class)
@@ -32,7 +33,7 @@ class MainActivityTest {
     companion object {
         @BeforeClass @JvmStatic @Throws(Exception::class)
         fun setUpOnce() {
-            SchedulersHook.setComputationScheduler(Schedulers.immediate())
+            RxJavaHooks.setOnComputationScheduler { Schedulers.immediate() }
         }
     }
 }
