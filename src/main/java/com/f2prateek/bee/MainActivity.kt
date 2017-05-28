@@ -11,8 +11,8 @@ import rx.subscriptions.CompositeSubscription
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
-    private var editor: EditText? = null
-    private var display: TextSwitcher? = null
+    lateinit private var editor: EditText
+    lateinit private var display: TextSwitcher
     private val subscription = CompositeSubscription()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,12 +24,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        subscription += RxTextView.textChanges(editor!!)
+        subscription += RxTextView.textChanges(editor)
                 .skip(1) // First event is a blank string "".
                 .debounce(400, TimeUnit.MILLISECONDS)
                 .map(CharSequence::spell)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(RxTextSwitcher.text(display!!))
+                .subscribe(RxTextSwitcher.text(display))
     }
 
     override fun onPause() {
