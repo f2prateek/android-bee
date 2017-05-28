@@ -1,30 +1,15 @@
 package com.f2prateek.bee
 
-fun CharSequence.spell(): String {
-    val sb = StringBuilder()
+fun CharSequence.spell(): String = this
+        .split(Regex("""\s"""))
+        .map { it.spellWord() }
+        .joinToString("\n")
 
-    var addSpace = true
-    for (c in this) {
-        if (Character.isSpaceChar(c)) {
-            if (sb.isNotEmpty()) {
-                sb.append('\n')
-                addSpace = false
-            }
-            continue
-        }
+fun String.spellWord(): String = this
+        .map { it.spellChar() ?: it }
+        .joinToString(" ")
 
-        if (sb.isNotEmpty() && addSpace) {
-            sb.append(' ')
-        }
-        addSpace = true
-
-        sb.append(c.spell() ?: c)
-    }
-
-    return sb.toString()
-}
-
-fun Char.spell(): String? {
+fun Char.spellChar(): String? {
     val c = Character.toLowerCase(this)
     when (c) {
         'a' -> return "Alfa"
