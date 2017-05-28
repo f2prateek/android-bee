@@ -38,10 +38,10 @@ class PhoneStateReceiver : BroadcastReceiver() {
         notificationManager.notify(null, NOTIFICATION_ID, builder.build())
     }
 
-    companion object {
-        private val NOTIFICATION_ID = 0
+    private companion object {
+        val NOTIFICATION_ID = 0
 
-        internal fun launchMainActivity(context: Context): PendingIntent {
+        fun launchMainActivity(context: Context): PendingIntent {
             val intent = Intent(context, MainActivity::class.java)
             return PendingIntent.getActivity(context, 0, intent, 0)
         }

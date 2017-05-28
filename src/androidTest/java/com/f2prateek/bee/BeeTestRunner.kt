@@ -8,7 +8,7 @@ import android.os.PowerManager.*
 import android.support.test.runner.AndroidJUnitRunner
 
 class BeeTestRunner : AndroidJUnitRunner() {
-    private var wakeLock: PowerManager.WakeLock? = null
+    private lateinit var wakeLock: PowerManager.WakeLock
 
     @Suppress("Deprecation")
     override fun onStart() {
@@ -21,7 +21,7 @@ class BeeTestRunner : AndroidJUnitRunner() {
         // Wake up the screen.
         val power = app.getSystemService(POWER_SERVICE) as PowerManager
         wakeLock = power.newWakeLock(FULL_WAKE_LOCK or ACQUIRE_CAUSES_WAKEUP or ON_AFTER_RELEASE, name)
-        wakeLock!!.acquire()
+        wakeLock.acquire()
 
         super.onStart()
     }
@@ -29,6 +29,6 @@ class BeeTestRunner : AndroidJUnitRunner() {
     override fun onDestroy() {
         super.onDestroy()
 
-        wakeLock!!.release()
+        wakeLock.release()
     }
 }

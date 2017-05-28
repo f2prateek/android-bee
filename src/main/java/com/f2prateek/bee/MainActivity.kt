@@ -6,14 +6,14 @@ import android.widget.EditText
 import android.widget.TextSwitcher
 import com.jakewharton.rxbinding.widget.RxTextSwitcher
 import com.jakewharton.rxbinding.widget.RxTextView
-import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
+import rx.subscriptions.CompositeSubscription
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
-    internal var editor: EditText? = null
-    internal var display: TextSwitcher? = null
-    internal var editorTextChanges: Subscription? = null
+    lateinit private var editor: EditText
+    lateinit private var display: TextSwitcher
+    private val subscription = CompositeSubscription()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,16 +24,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        editorTextChanges = RxTextView.textChanges(editor!!)
+        subscription += RxTextView.textChanges(editor)
                 .skip(1) // First event is a blank string "".
                 .debounce(400, TimeUnit.MILLISECONDS)
                 .map(CharSequence::spell)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(RxTextSwitcher.text(display!!))
+                .subscribe(RxTextSwitcher.text(display))
     }
 
     override fun onPause() {
         super.onPause()
-        editorTextChanges!!.unsubscribe()
+        subscription.clear()
     }
 }
