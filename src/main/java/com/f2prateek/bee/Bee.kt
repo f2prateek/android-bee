@@ -18,12 +18,7 @@ fun CharSequence.spell(): String {
         }
         addSpace = true
 
-        val spelt = c.spell()
-        if (spelt == null) {
-            sb.append(c)
-        } else {
-            sb.append(spelt)
-        }
+        sb.append(c.spell() ?: c)
     }
 
     return sb.toString()
