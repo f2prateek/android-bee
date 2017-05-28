@@ -11,8 +11,8 @@ import rx.subscriptions.CompositeSubscription
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
-    internal var editor: EditText? = null
-    internal var display: TextSwitcher? = null
+    private var editor: EditText? = null
+    private var display: TextSwitcher? = null
     private val subscription = CompositeSubscription()
 
     override fun onCreate(savedInstanceState: Bundle?) {
