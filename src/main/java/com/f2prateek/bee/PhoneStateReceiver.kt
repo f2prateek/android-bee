@@ -8,7 +8,9 @@ import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.support.v4.app.NotificationCompat
 import android.telephony.TelephonyManager
-import android.telephony.TelephonyManager.*
+import android.telephony.TelephonyManager.EXTRA_STATE_IDLE
+import android.telephony.TelephonyManager.EXTRA_STATE_OFFHOOK
+import android.telephony.TelephonyManager.EXTRA_STATE_RINGING
 import timber.log.Timber
 
 class PhoneStateReceiver : BroadcastReceiver() {
@@ -39,7 +41,7 @@ class PhoneStateReceiver : BroadcastReceiver() {
     }
 
     private companion object {
-        val NOTIFICATION_ID = 0
+        const val NOTIFICATION_ID = 0
 
         fun launchMainActivity(context: Context): PendingIntent {
             val intent = Intent(context, MainActivity::class.java)
