@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
 import android.widget.TextSwitcher
-import com.jakewharton.rxbinding.widget.RxTextSwitcher
-import com.jakewharton.rxbinding.widget.RxTextView
+import com.jakewharton.rxbinding.widget.textChanges
 import rx.android.schedulers.AndroidSchedulers
 import rx.subscriptions.CompositeSubscription
 import java.util.concurrent.TimeUnit
@@ -24,12 +23,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        subscription += RxTextView.textChanges(editor)
+        subscription += editor.textChanges()
                 .skip(1) // First event is a blank string "".
                 .debounce(400, TimeUnit.MILLISECONDS)
                 .map(CharSequence::spell)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(RxTextSwitcher.text(display))
+                .subscribe(display::setText)
     }
 
     override fun onPause() {
