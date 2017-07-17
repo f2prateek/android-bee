@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
 import android.widget.TextSwitcher
 import com.jakewharton.rxbinding.widget.RxTextSwitcher
-import com.jakewharton.rxbinding.widget.RxTextView
 import rx.android.schedulers.AndroidSchedulers
 import rx.subscriptions.CompositeSubscription
 import java.util.concurrent.TimeUnit
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 .debounce(400, TimeUnit.MILLISECONDS)
                 .map(CharSequence::spell)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(RxTextSwitcher.text(display))
+                .subscribe(display::setText)
     }
 
     override fun onPause() {
